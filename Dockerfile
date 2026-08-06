@@ -10,6 +10,7 @@ RUN apt-get update \
       unzip \
       gnupg \
       software-properties-common \
+      less \
  && rm -rf /var/lib/apt/lists/* \
  && npm install -g @github/copilot
 
