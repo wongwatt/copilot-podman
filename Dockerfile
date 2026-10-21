@@ -7,6 +7,7 @@ RUN apt-get update \
       git \
       ca-certificates \
       curl \
+      openssl \
       unzip \
       gnupg \
       software-properties-common \
@@ -58,6 +59,8 @@ RUN GRADLE_VERSION=$(curl -s https://services.gradle.org/versions/current | jq -
  && unzip /tmp/gradle.zip -d /opt \
  && ln -s "/opt/gradle-${GRADLE_VERSION}/bin/gradle" /usr/local/bin/gradle \
  && rm /tmp/gradle.zip
+
+COPY --chmod=755 copilot-bedrock.sh /usr/local/bin/copilot-bedrock
 
 WORKDIR /workspace
 CMD ["bash"]

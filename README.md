@@ -40,6 +40,28 @@ This uses the device flow. On subsequent runs, auth is preserved via the named v
 
 Alternatively, pass a token via environment variable (see below).
 
+### Using Amazon Bedrock
+
+The image includes `copilot-bedrock.sh` as the `copilot-bedrock` command on `PATH`.
+Inside the container, set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and
+`AWS_SESSION_TOKEN`, then run:
+
+```bash
+copilot-bedrock
+```
+
+Arguments are forwarded to Copilot. Optional environment variables include
+`AWS_REGION` (default: `eu-west-1`), `BEDROCK_MODEL` (default:
+`global.moonshotai.kimi-k3`), and `BEDROCK_TOKEN_TTL` (default: `3600` seconds).
+The launcher uses AWS credentials instead of GitHub authentication.
+
+If you already have a cached image, rebuild it from this repository before
+starting the wrapper:
+
+```bash
+podman build -t "${COPILOT_PODMAN_IMAGE:-copilot-cli-sandbox:latest}" .
+```
+
 ## Environment Variables
 
 | Variable | Default | Description |
