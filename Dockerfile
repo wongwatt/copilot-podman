@@ -61,6 +61,7 @@ RUN GRADLE_VERSION=$(curl -s https://services.gradle.org/versions/current | jq -
  && rm /tmp/gradle.zip
 
 COPY --chmod=755 copilot-bedrock.sh /usr/local/bin/copilot-bedrock
+COPY --chmod=755 copilot-litellm.sh /usr/local/bin/copilot-litellm
 
 WORKDIR /workspace
 CMD ["bash"]

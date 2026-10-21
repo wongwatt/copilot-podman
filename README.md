@@ -55,6 +55,30 @@ Arguments are forwarded to Copilot. Optional environment variables include
 `global.moonshotai.kimi-k3`), and `BEDROCK_TOKEN_TTL` (default: `3600` seconds).
 The launcher uses AWS credentials instead of GitHub authentication.
 
+### Using LiteLLM
+
+The image includes `copilot-litellm.sh` as the `copilot-litellm` command on
+`PATH`. It connects to a LiteLLM proxy published on the host at port 4000
+(reached via `host.containers.internal`). Inside the container, run:
+
+```bash
+copilot-litellm
+```
+
+Arguments are forwarded to Copilot. Optional environment variables include
+`LITELLM_BASE_URL` (default: `http://host.containers.internal:4000`; `/v1` is
+appended if missing), `LITELLM_MODEL` (default: first model from `/v1/models`),
+`LITELLM_WIRE_API` (`completions` or `responses`; default: `completions`), and
+`LITELLM_API_KEY` (only needed if the proxy requires authentication).
+
+If LiteLLM returns `UnsupportedParamsError` (e.g. Bedrock Claude models rejecting
+`presence_penalty` or `temperature`), enable `drop_params` in the LiteLLM config:
+
+```yaml
+litellm_settings:
+  drop_params: true
+```
+
 If you already have a cached image, rebuild it from this repository before
 starting the wrapper:
 
